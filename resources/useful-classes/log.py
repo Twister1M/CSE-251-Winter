@@ -7,10 +7,10 @@ class Log():
     """ Logger Class for CSE 251 """
 
     def __init__(self, filename_log='',
-                 linefmt='',
-                 show_levels=False,
-                 show_terminal=False,
-                 include_time=True):
+                linefmt='',
+                show_levels=False,
+                show_terminal=False,
+                include_time=True):
         self._start_time = time.perf_counter()
         self._show_terminal = show_terminal
 
@@ -22,7 +22,7 @@ class Log():
         self._filename = filename_log
 
         if linefmt == '':
-          linefmt = '%(message)s'
+            linefmt = '%(message)s'
 
         if show_levels:
             linefmt = '%(levelname)s - ' + linefmt

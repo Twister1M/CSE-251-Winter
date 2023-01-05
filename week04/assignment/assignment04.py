@@ -1,28 +1,28 @@
 '''
 Requirements
 1. Using two threads, put cars onto a shared queue, with one thread consuming
-   the items from the queue and the other producing the items.
+    the items from the queue and the other producing the items.
 2. The size of queue should never exceed 10.
 3. Do not call queue size to determine if maximum size has been reached. This means
-   that you should not do something like this: 
+    that you should not do something like this: 
         if q.size() < 10:
-   Use the blocking semaphore function 'acquire'.
+    Use the blocking semaphore function 'acquire'.
 4. Produce a Plot of car count vs queue size (okay to use q.size since this is not a
-   condition statement).
-   
+    condition statement).
+
 Questions:
 1. Do you need to use locks around accessing the queue object when using multiple threads? 
-   Why or why not?
-   >
-   >
+    Why or why not?
+    >
+    >
 2. How would you define a semaphore in your own words?
-   >
-   >
+    >
+    >
 3. Read https://stackoverflow.com/questions/2407589/what-does-the-term-blocking-mean-in-programming.
-   What does it mean that the "join" function is a blocking function? Why do we want to block?
-   >
-   >
-   >
+    What does it mean that the "join" function is a blocking function? Why do we want to block?
+    >
+    >
+    >
 '''
 
 from datetime import datetime
@@ -47,12 +47,12 @@ class Car():
 
     # Class Variables
     car_makes = ('Ford', 'Chevrolet', 'Dodge', 'Fiat', 'Volvo', 'Infiniti', 'Jeep', 'Subaru',
-                 'Buick', 'Volkswagen', 'Chrysler', 'Smart', 'Nissan', 'Toyota', 'Lexus',
-                 'Mitsubishi', 'Mazda', 'Hyundai', 'Kia', 'Acura', 'Honda')
+                'Buick', 'Volkswagen', 'Chrysler', 'Smart', 'Nissan', 'Toyota', 'Lexus',
+                'Mitsubishi', 'Mazda', 'Hyundai', 'Kia', 'Acura', 'Honda')
 
     car_models = ('A1', 'M1', 'XOX', 'XL', 'XLS', 'XLE', 'Super', 'Tall', 'Flat', 'Middle', 'Round',
-                  'A2', 'M1X', 'SE', 'SXE', 'MM', 'Charger', 'Grand', 'Viper', 'F150', 'Town', 'Ranger',
-                  'G35', 'Titan', 'M5', 'GX', 'Sport', 'RX')
+                'A2', 'M1X', 'SE', 'SXE', 'MM', 'Charger', 'Grand', 'Viper', 'F150', 'Town', 'Ranger',
+                'G35', 'Titan', 'M5', 'GX', 'Sport', 'RX')
 
     car_years = [i for i in range(1990, datetime.now().year)]
 
@@ -104,7 +104,7 @@ class Manufacturer(threading.Thread):
             create a car
             place the car on the queue
             signal the dealer that there is a car on the queue
-           """
+            """
 
         # signal the dealer that there there are no more cars
 
@@ -163,7 +163,7 @@ def main():
     xaxis = [i for i in range(1, MAX_QUEUE_SIZE + 1)]
     plot = Plots()
     plot.bar(xaxis, queue_stats,
-             title=f'{sum(queue_stats)} Produced: Count VS Queue Size', x_label='Queue Size', y_label='Count')
+            title=f'{sum(queue_stats)} Produced: Count VS Queue Size', x_label='Queue Size', y_label='Count')
 
 
 if __name__ == '__main__':

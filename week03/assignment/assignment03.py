@@ -1,13 +1,13 @@
 '''
 Requirements
 1. Write a multithreaded program that calls a local web server. The web server is 
-   provided to you. It will return data about the Star Wars movies.
+provided to you. It will return data about the Star Wars movies.
 2. You will make 94 calls to the web server, using 94 threads to get the data.
 3. Using a new thread each time, obtain a list of the characters, planets, 
-   starships, vehicles, and species of the sixth Star War movie.
+starships, vehicles, and species of the sixth Star War movie.
 3. Use the provided print_film_details function to print out the data 
-   (should look exactly like the "sample_output.txt file).
-   
+(should look exactly like the "sample_output.txt file).
+
 Questions:
 1. Is this assignment an IO Bound or CPU Bound problem (see https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)?
     >

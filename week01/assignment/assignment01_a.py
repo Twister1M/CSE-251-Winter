@@ -32,22 +32,22 @@ import threading
 SUM = 0
 
 def main():
-    
-    # If not using a global, use this list to store your results
+   
+   # If not using a global, use this list to store your results
     results = [0] * 3
-    
-    # If using a global, place these asserts after the call to your summing function 
-    # to check that your code is working correctly
-    #assert SUM == 45, f'The sum should equal 45 but instead was {SUM}'  
-    #assert SUM == 78, f'The sum should equal 78 but instead was {SUM}'    
-    #assert SUM == 136, f'The sum should equal 136 but instead was {SUM}'
-    
-    # If using a list object, place these asserts after the call to your summing function
-    # to check that your code is working correctly
-    #assert results[0] == 45, f'The sum should equal 45 but instead was {results[0]}'  
-    #assert results[1] == 78, f'The sum should equal 78 but instead was {results[1]}'    
-    #assert results[2] == 136, f'The sum should equal 136 but instead was {results[2]}'
+   
+   # If using a global, place these asserts after the call to your summing function 
+   # to check that your code is working correctly
+   #assert SUM == 45, f'The sum should equal 45 but instead was {SUM}'  
+   #assert SUM == 78, f'The sum should equal 78 but instead was {SUM}'    
+   #assert SUM == 136, f'The sum should equal 136 but instead was {SUM}'
+   
+   # If using a list object, place these asserts after the call to your summing function
+   # to check that your code is working correctly
+   #assert results[0] == 45, f'The sum should equal 45 but instead was {results[0]}'  
+   #assert results[1] == 78, f'The sum should equal 78 but instead was {results[1]}'    
+   #assert results[2] == 136, f'The sum should equal 136 but instead was {results[2]}'
 
 if __name__ == '__main__':
-    main()
-    print("DONE")
+   main()
+   print("DONE")
