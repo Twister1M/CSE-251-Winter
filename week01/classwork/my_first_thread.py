@@ -34,6 +34,7 @@ def create_threads():
     
     t1 = MyThread(10)
     t1.start()
+    t1.join()
     
     print(f"Final Count = {t1.sum}.")
     
