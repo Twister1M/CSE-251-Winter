@@ -6,7 +6,6 @@ between 10,000,000,000 and 10,000,110,003.
 3. Each thread should look over an approximately equal number of numbers.
 This means that you need to divise an algorithm that can divide up the
 110,003 numbers "fairly" based on a variable number of threads. 
-
 Psuedocode: 
 1. Create variable for the start number (10_000_000_000)
 2. Create variable for range of numbers to examine (110_003)
@@ -24,17 +23,16 @@ then increase to 5, then 10).
 if the value is prime using the isPrime function. Use the globals
 to keep track of the total numbers examined and the number of primes
 found. 
-
 Questions:
-1. Time to run using 1 thread =
-2. Time to run using 5 threads =
-3. Time to run using 10 threads =
+1. Time to run using 1 thread =   44.45 sec
+2. Time to run using 5 threads =  41.61 sec
+3. Time to run using 10 threads = 40.33 sec
 4. Based on your study of the GIL (see https://realpython.com/python-gil), 
 what conclusions can you draw about the similarity of the times (short answer)?
->
->
+>  The times are similar because of the python GIL, which prevents any two threads from running at the same time in one process to prevement memory errors.
+>  This means there is only a little efficiency to gain from running multiple threads, as no two threads can be doing calculations at once.
 5. Is this assignment an IO Bound or CPU Bound problem (see https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean)?
->
+>  This assignment is CPU-bound.  This is because all of the waiting is based on calculations that the computer must make.
 '''
 
 from datetime import datetime, timedelta
@@ -53,18 +51,17 @@ def is_prime(n: int):
     """
     Primality test using 6k+-1 optimization.
     From: https://en.wikipedia.org/wiki/Primality_test
-
     Parameters
     ----------
     ``n`` : int
         Number to determine if prime
-
     Returns
     -------
     bool
         True if ``n`` is prime.
-    """
-
+    """   
+    
+    
     if n <= 3:
         return n > 1
     if n % 2 == 0 or n % 3 == 0:
@@ -76,12 +73,127 @@ def is_prime(n: int):
         i += 6
     return True
 
+
+def calc_values(starting_num, ending_num):
+    
+    total_num = ending_num - starting_num
+    return total_num
+
+
+def is_prime_edited(num_array):
+    
+    global prime_count
+    global numbers_processed
+    
+    for val in num_array:
+        
+        
+        if is_prime(val) == True:
+            prime_count += 1
+        numbers_processed += 1
+        
+        print(f"Current prime count: {prime_count}; Current number processed: {numbers_processed}.\n")
+
+
+
+
+
 if __name__ == '__main__':
     # Start a timer
     begin_time = time.perf_counter()
 
     # TODO write code here
+    
+    # Variables representing the start and end values, and the total number of values between.
+    starting_num = 10000000000
+    ending_num   = 10000110003
+    total_num = calc_values(starting_num, ending_num)
+    
+    # Variable holding the number of threads, as well as an array to store them.
+    thread_count = 10
+    thread_array = []
+    
+    # Array to hold the range of values each thread checks.
+    num_array_true = [] * thread_count
+    
+    # Variable holding the rounded number of integers each thread will check.
+    num_per = math.floor(total_num/thread_count)
+    
+    # Variable holding the remainder of the previous calculation.
+    remaining_num = total_num - (num_per * thread_count)
+    
+    # Variables for iteration
+    cur_val = starting_num
+    last_val = starting_num + num_per
+    
+    # For all but the last thread,
+    for thread in range(1,thread_count+1):
+        if thread != thread_count:
+            
+            # Instance new_array
+            new_array = []
+            
+            # For each value allocated to the current thread:
+            for val in range(cur_val, last_val):
+                
+                # Append the new array with the value.
+                new_array.append(val)
+            
+            # Store the array inside another array for later use.
+            num_array_true.append(new_array)
+            
+            # Iterate for next loop.
+            cur_val += num_per
+            last_val += num_per
+        
+        # Last thread
+        if thread == thread_count:
+            
+            # Same as before
+            new_array = []
+            
+            # Add remainder to last value
+            last_val += remaining_num
+            
+            # Same as before
+            for val in range(cur_val, last_val):
+                new_array.append(val)
+            num_array_true.append(new_array)
+    
+    
+    
+    
+    print("Starting threads.\n")
+    
+    
+    
+    # For n threads:
+    for thread in range(0,thread_count):
+        
+        
+        print(f"Creating thread {thread+1}.")
+        
+        # Create a thread running 'is_prime_iedited', inputting the array assigned to this thread.
+        t = threading.Thread(target=is_prime_edited, args=(num_array_true[thread],))
+        
+        # Add thread to array for ease of use
+        thread_array.append(t)
 
+    # Visual progress
+    print(thread_array)
+    
+    for thread in thread_array:
+        
+        # Start thread
+        thread.start()
+    
+    for thread in thread_array:
+        
+        # Join thread
+        thread.join()
+    
+    
+    
     # Use the below code to check and print your results
     assert numbers_processed == 110_003, f"Should check exactly 110,003 numbers but checked {numbers_processed}"
     assert prime_count == 4764, f"Should find exactly 4764 primes but found {prime_count}"
